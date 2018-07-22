@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "lib": [ "dom", "es5", "es6" ],
+    "module": "none",
+    "noEmitOnError": true,
+    "removeComments": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "outFile": "./src/js/all.js",
+    "sourceMap": true,
+    "target": "es5",
+    "inlineSources": true
+  },
+  "include": [
+    "src/ts/**/*"
+  ],
+  "exclude": [
+    "node_modules/@types"
+  ]
+}

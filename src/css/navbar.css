@@ -1,0 +1,21 @@
+header.nav-wrapper {
+    width: 100%;
+    height: 60px;
+    background-color: #294E80;
+}
+
+.gnb {
+    display: flex;
+    width: inherit;
+    height: inherit;
+}
+
+.gnb-left-logo {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    flex: 1;
+    height: inherit;
+    font-size: 28px;
+    color: #FFF;
+}
