@@ -1,5 +1,11 @@
 # simple-mark-editor
-마크다운 에디터입니다.
+간단하게 사용 가능한 마크다운 에디터입니다.
+
+markedjs를 사용해 샘플을 제작해봤습니다.
+
+## 발견된 문제점
+* '#' 글머리의 폰트가 작게 표시되어 수정이 필요합니다.
 
 ## 사용된 라이브러리
-[markedjs/marked] (https://github.com/markedjs/marked) - MIT LICENSE
+* [NPM | marked] (https://www.npmjs.com/package/marked) - MIT LICENSE
+* [NPM | @types/marked] (https://www.npmjs.com/package/@types/marked) - MIT LICENSE
