@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Markdown 만들기</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="expires" content="mon, 06 jan 1990 00:00:01 GMT" />
+
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/navbar.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/editor.css" />
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/marked/lib/marked.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <header class="nav-wrapper">
+            <nav class="gnb">
+                <div class="gnb-left-logo">Markdown</div>
+            </nav>
+        </header>
+    
+        <section class="flex-layout container">
+            
+            <section class="flex-panel">
+                <div class="flex-panel-head">
+                    <label>Text</label>
+                </div>
+                <div class="flex-panel-body">
+                    <article class="markdown-editor" id="editor">
+                        <textarea id="workSpace"></textarea>
+                    </article>
+                </div>
+            </section>
+
+            <section class="flex-panel">
+                <div class="flex-panel-head">
+                    <label>Markdown</label>
+                </div>
+                <div class="flex-panel-body">
+                    <article class="markdown-converter" id="converter">
+                        <div id="translationSpace">
+
+                        </div>
+                    </article>
+                </div>
+            </section>
+    
+        </section>
+    </div>
+
+    <script type="text/javascript" src="src/js/all.js"></script>
+</body>
+</html>

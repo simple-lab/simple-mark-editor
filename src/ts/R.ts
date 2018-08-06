@@ -5,7 +5,10 @@ namespace SimpleMarkEditor {
             editor: $("#editor"),
             workSpace: $("#workSpace"),
             converter: $("#converter"),
-            translationSpace: $("#translationSpace")
+            translationSpace: $("#translationSpace"),
+            modalScroll: $("#modalScroll"),
+            popupHeader: $("#popupHeader"),
+            fixedHeader: $("#fixedHeader")
         }
 
         static image = {

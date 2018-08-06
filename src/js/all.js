@@ -16,6 +16,27 @@ var SimpleMarkEditor;
 })(SimpleMarkEditor || (SimpleMarkEditor = {}));
 var SimpleMarkEditor;
 (function (SimpleMarkEditor) {
+    var QuestionModal = /** @class */ (function () {
+        function QuestionModal() {
+            console.log("Load::QuestionModal");
+            SimpleMarkEditor.R.id.modalScroll.scroll(this.scrollDetect);
+        }
+        QuestionModal.prototype.scrollDetect = function () {
+            var scrollTop = SimpleMarkEditor.R.id.modalScroll.scrollTop();
+            console.log(screenTop);
+            if (scrollTop > 40) {
+                SimpleMarkEditor.R.id.fixedHeader.show();
+            }
+            else {
+                SimpleMarkEditor.R.id.fixedHeader.hide();
+            }
+        };
+        return QuestionModal;
+    }());
+    SimpleMarkEditor.QuestionModal = QuestionModal;
+})(SimpleMarkEditor || (SimpleMarkEditor = {}));
+var SimpleMarkEditor;
+(function (SimpleMarkEditor) {
     var R = /** @class */ (function () {
         function R() {
         }
@@ -23,7 +44,10 @@ var SimpleMarkEditor;
             editor: $("#editor"),
             workSpace: $("#workSpace"),
             converter: $("#converter"),
-            translationSpace: $("#translationSpace")
+            translationSpace: $("#translationSpace"),
+            modalScroll: $("#modalScroll"),
+            popupHeader: $("#popupHeader"),
+            fixedHeader: $("#fixedHeader")
         };
         R.image = {};
         R.string = {};
@@ -36,6 +60,7 @@ var SimpleMarkEditor;
     function startup() {
         successLog();
         var mdConverter = new SimpleMarkEditor.MarkdownConverter();
+        var questionModal = new SimpleMarkEditor.QuestionModal();
     }
     SimpleMarkEditor.app = startup();
     function successLog() {

@@ -7,6 +7,7 @@ namespace SimpleMarkEditor {
 
         let mdConverter = new MarkdownConverter();
 
+        let questionModal = new QuestionModal();
     }
     export var app: any = startup();
 

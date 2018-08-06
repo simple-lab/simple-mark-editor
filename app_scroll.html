@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>앱 스크롤</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="expires" content="mon, 06 jan 1990 00:00:01 GMT" />
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+
+    <style>
+        body {
+            margin: 0; padding: 0;
+        }
+
+        #app {
+            width: 100vw;
+            height: 100vh;    
+            overflow: hidden;
+        }
+
+        .modal {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+        .overlay {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        a {
+            cursor: pointer;
+        }
+        
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .fixedHeader {
+            position: fixed;
+            width: 100vw;
+            overflow-y: scroll;
+        }
+        .fixedHeader .questionPopup {
+            margin-top: 0px !important;
+            box-shadow: none;
+        }
+        .fixedHeader .problemName {
+            margin-bottom: 10px !important;
+        }
+
+        .questionPopup {
+            margin: 40px auto 0;
+            padding: 10px;
+            width: 640px;
+            height: auto;
+            background-color: #FFF;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+        .popupHeader {
+            margin: 10px;
+        }
+        .questionTitle {
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .problemName {
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .problemName span:nth-child(2) {
+            color: #46B79C;
+        }
+
+        .popupBody {
+            width: 100%;
+
+        }
+        .questionSubTitle {
+            margin: 10px;
+            font-size: 14px;
+            color: #757575;
+        }
+        .questionContents {
+            width: 100%;
+        }
+        .questionList {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            list-style: none;
+        }
+        .questionItem {
+            margin: 10px;
+            background-color: #F2F2F2;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        .questionTitleBox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .questionContentBox {
+            font-size: 12px;
+        }
+        .questionContentBox div:nth-child(1) {
+            padding: 10px;
+            min-height: 80px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .questionContentBox div:nth-child(2) {
+            padding: 10px;
+            min-height: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .questionContentBox div:nth-child(2).isQuestion {
+            min-height: 80px;
+        }
+        .questionContentBox div:nth-child(2).notQuestion {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .questionName {
+            font-weight: normal;
+        }
+        .questionViewBtn {
+            padding: 0;
+            color: #FFF;
+            border: none;
+        }
+        .questionViewBtn.answer {
+            background-color: #5CB85C;
+        }
+        .questionViewBtn.notAnswer {
+            background-color: #DF6E6B;
+        }
+        .questionViewBtn a {
+            display: block;
+            padding: 4px 8px;
+        }
+        .cancelQuestionBtn {
+            padding: 0;
+            background-color: #909090; /*398AA8*/
+            color: #FFF;
+            border: none;
+        }
+        .cancelQuestionBtn a {
+            display: block;
+            padding: 4px 8px;
+        }
+        .newQuestionBtn {
+            display: flex;
+            margin: 10px;
+            background-color: #46B79C;
+            color: #FFF;
+        }
+        .newQuestionBtn a {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            padding: 12px;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="modal overlay" id="modalScroll">
+            <div class="fixedHeader" id="fixedHeader" style="display: none;">
+                <div class="questionPopup">
+                    <div class="popupHeader">
+                        <div class="questionTitle">문제에 대해 질문하기</div>
+                        <div class="problemName"><span>문제: </span><span>{title}</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="fixedFooter" id="fixedFooter" style="">
+                <div class="questionPopup">
+                    <div class="newQuestionBtn">
+                        <a>새로운 질문 올리기</a>
+                    </div>
+                </div>
+            </div> -->
+            
+            <div class="questionPopup">
+                <div class="popupHeader" id="popupHeader">
+                    <div class="questionTitle">문제에 대해 질문하기</div>
+                    <div class="problemName"><span>문제: </span><span>{title}</span></div>
+                </div>
+                <div class="popupBody">
+                    <div class="questionSubTitle">내가 한 질문</div>
+                    <div class="questionContents">
+                        <ul class="questionList">
+                            <li class="questionItem">
+                                <div class="questionTitleBox">
+                                    <div class="questionName">밥은 맛있나요?</div>
+                                    <button class="questionViewBtn answer">
+                                        <a>질문 접기</a>
+                                    </button>
+                                </div>
+                                <div class="questionContentBox">
+                                    <div>
+                                        밥은 정말 맛있나요?
+                                    </div>
+                                    <div class="isQuestion">
+                                        답변:<br/>
+                                        원래 이런 질문에는 답을 안하지만 NYPC에서 제공하는 식사는 정말 맛있습니다.
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="questionItem">
+                                <div class="questionTitleBox">
+                                    <div class="questionName">밥은 맛있나요?</div>
+                                    <button class="questionViewBtn notAnswer">
+                                        <a>질문 접기</a>
+                                    </button>
+                                </div>
+                                <div class="questionContentBox">
+                                    <div>
+                                        밥은 정말 맛있나요?
+                                    </div>
+                                    <div class="notQuestion">
+                                        <button class="cancelQuestionBtn">
+                                            <a>질문 취소</a>
+                                        </button>
+                                        <!-- 답변을 안달았을때 빈 내용 디스플레이 -->
+                                    </div>
+                                </div>
+                            </li>
+                            <script>
+                                let htmlTag = `
+                                    <li class="questionItem">
+                                        <div class="questionTitleBox">
+                                            <div class="questionName">밥은 맛있나요?</div>
+                                            <button class="questionViewBtn notAnswer">
+                                                <a>질문 보기</a>
+                                            </button>
+                                        </div>
+                                    </li>
+                                `;
+
+                                for(let i = 0; i < 20; i++) {
+
+
+                                    $('.questionList').eq(0).append(htmlTag);
+                                }
+                            </script>
+                        </ul>
+                        <div class="newQuestionBtn">
+                            <a>새로운 질문 올리기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contastBody" style="
+            background: url(./assets/nature-tree-green-pine.jpg);
+            width: 110vw;
+            height: 110vh;
+            z-index: 0;
+            background-size: cover;
+            filter: blur(10px) grayscale(0.7);
+        "></div>
+    </div>
+    <script type="text/javascript" src="src/js/all.js"></script>
+</body>
+</html>
