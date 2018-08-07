@@ -18,43 +18,43 @@
             overflow: hidden;
         }
 
-        .modal {
+        a {
+            cursor: pointer;
+        }
+
+        .questionModal {
             position: fixed;
             width: 100vw;
             height: 100vh;
             overflow-y: scroll;
         }
-        .overlay {
+        .questionModal.overlay {
             position: fixed;
             width: 100vw;
             height: 100vh;
             background-color: rgba(0, 0, 0, 0.3);
             z-index: 2;
         }
-
-        a {
-            cursor: pointer;
-        }
         
         a:hover {
             background-color: rgba(0, 0, 0, 0.1);
         }
 
-        .fixedHeader {
+        .questionModal .fixedHeader {
             position: fixed;
             width: 100vw;
             overflow-y: scroll;
         }
-        .fixedHeader .questionPopup {
+        .questionModal .fixedHeader .questionPopup {
             margin-top: 0px !important;
             box-shadow: none;
             min-height: 0px !important;
         }
-        .fixedHeader .problemName {
+        .questionModal .fixedHeader .problemName {
             margin-bottom: 10px !important;
         }
 
-        .questionPopup {
+        .questionModal .questionPopup {
             margin: 40px auto 0;
             padding: 10px;
             width: 640px;
@@ -65,116 +65,116 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             z-index: 10;
         }
-        .popupHeader {
+        .questionModal .popupHeader {
             margin: 10px;
         }
-        .questionTitle {
+        .questionModal .questionTitle {
             margin-bottom: 10px;
             font-size: 24px;
             font-weight: bold;
         }
-        .problemName {
+        .questionModal .problemName {
             margin-bottom: 40px;
             font-size: 16px;
         }
-        .problemName span:nth-child(2) {
+        .questionModal .problemName span:nth-child(2) {
             color: #46B79C;
         }
 
-        .popupBody {
+        .questionModal .popupBody {
             width: 100%;
 
         }
-        .questionSubTitle {
+        .questionModal .questionSubTitle {
             margin: 10px;
             font-size: 14px;
             color: #757575;
         }
-        .questionContents {
+        .questionModal .questionContents {
             width: 100%;
         }
-        .questionList {
+        .questionModal .questionList {
             margin: 0;
             padding: 0;
             width: 100%;
             list-style: none;
         }
-        .questionItem {
+        .questionModal .questionItem {
             margin: 10px;
             background-color: #FAFAFA; /* F2F2F2 */
             font-size: 14px;
             border-radius: 4px;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
-        .questionTitleBox {
+        .questionModal .questionTitleBox {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px;
         }
-        .questionContentBox {
+        .questionModal .questionContentBox {
             font-size: 12px;
             overflow: hidden;
             height: 0;
         }
-        .questionContentBox div:nth-child(1) {
+        .questionModal .questionContentBox div:nth-child(1) {
             padding: 10px;
             min-height: 80px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
-        .questionContentBox div:nth-child(2) {
+        .questionModal .questionContentBox div:nth-child(2) {
             padding: 10px;
             min-height: 10px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
-        .questionContentBox div:nth-child(2).isQuestion {
+        .questionModal .questionContentBox div:nth-child(2).isQuestion {
             min-height: 80px;
         }
-        .questionContentBox div:nth-child(2).notQuestion {
+        .questionModal .questionContentBox div:nth-child(2).notQuestion {
             display: flex;
             justify-content: flex-end;
         }
-        .questionContentBox.opened {
+        .questionModal .questionContentBox.opened {
             overflow-y: auto;
             height: auto;
         }
 
-        .questionName {
+        .questionModal .questionName {
             font-weight: normal;
         }
-        .questionViewBtn {
+        .questionModal .questionViewBtn {
             padding: 0;
             color: #FFF;
             border: none;
         }
-        .questionViewBtn.answer {
+        .questionModal .questionViewBtn.answer {
             background-color: #5CB85C;
         }
-        .questionViewBtn.notAnswer {
+        .questionModal .questionViewBtn.notAnswer {
             background-color: #DF6E6B;
         }
-        .questionViewBtn a {
+        .questionModal .questionViewBtn a {
             display: block;
             padding: 4px 8px;
         }
-        .cancelQuestionBtn {
+        .questionModal .cancelQuestionBtn {
             padding: 0;
             background-color: #909090; /*398AA8*/
             color: #FFF;
             border: none;
         }
-        .cancelQuestionBtn a {
+        .questionModal .cancelQuestionBtn a {
             display: block;
             padding: 4px 8px;
         }
-        .newQuestionBtn {
+        .questionModal .newQuestionBtn {
             display: flex;
             margin: 10px;
             margin-bottom: 0;
             background-color: #46B79C;
             color: #FFF;
         }
-        .newQuestionBtn a {
+        .questionModal .newQuestionBtn a {
             display: flex;
             justify-content: center;
             align-content: center;
@@ -186,7 +186,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="modal overlay" id="modalScroll">
+        <div class="questionModal overlay" id="modalScroll">
             <div class="fixedHeader" id="fixedHeader" style="display: none;">
                 <div class="questionPopup">
                     <div class="popupHeader">
@@ -225,7 +225,7 @@
                                     </div>
                                     <div class="isQuestion">
                                         답변:<br/>
-                                        원래 이런 질문에는 답을 안하지만 NYPC에서 제공하는 식사는 정말 맛있습니다.
+                                        원래 이런 질문에는 답을 안하지만 행사장에서 제공하는 식사는 정말 맛있습니다.
                                     </div>
                                 </div>
                             </li>
@@ -270,8 +270,6 @@
                                             '</li>'
 
                                 for(let i = 0; i < 20; i++) {
-
-
                                     $('.questionList').eq(0).append(htmlTag);
                                 }
                             </script>
