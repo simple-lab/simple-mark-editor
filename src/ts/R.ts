@@ -11,6 +11,11 @@ namespace SimpleMarkEditor {
             fixedHeader: $("#fixedHeader")
         }
 
+        static class = {
+            questionViewBtn: $(".questionViewBtn"),
+            questionContentBox: $(".questionContentBox")
+        }
+
         static image = {
 
         }

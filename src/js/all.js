@@ -20,15 +20,27 @@ var SimpleMarkEditor;
         function QuestionModal() {
             console.log("Load::QuestionModal");
             SimpleMarkEditor.R.id.modalScroll.scroll(this.scrollDetect);
+            SimpleMarkEditor.R.class.questionViewBtn.click(this.toggleQuestion);
         }
         QuestionModal.prototype.scrollDetect = function () {
             var scrollTop = SimpleMarkEditor.R.id.modalScroll.scrollTop();
-            console.log(screenTop);
             if (scrollTop > 40) {
                 SimpleMarkEditor.R.id.fixedHeader.show();
             }
             else {
                 SimpleMarkEditor.R.id.fixedHeader.hide();
+            }
+        };
+        QuestionModal.prototype.toggleQuestion = function () {
+            var questionViewBtn = $(this);
+            var questionContentBox = questionViewBtn.parents('.questionItem').find('.questionContentBox');
+            questionViewBtn.toggleClass('opened');
+            questionContentBox.toggleClass('opened');
+            if (questionViewBtn.hasClass('opened')) {
+                questionViewBtn.children().eq(0).text("질문 접기");
+            }
+            else {
+                questionViewBtn.children().eq(0).text("질문 보기");
             }
         };
         return QuestionModal;
@@ -48,6 +60,10 @@ var SimpleMarkEditor;
             modalScroll: $("#modalScroll"),
             popupHeader: $("#popupHeader"),
             fixedHeader: $("#fixedHeader")
+        };
+        R.class = {
+            questionViewBtn: $(".questionViewBtn"),
+            questionContentBox: $(".questionContentBox")
         };
         R.image = {};
         R.string = {};

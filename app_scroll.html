@@ -6,7 +6,7 @@
     <meta http-equiv="expires" content="mon, 06 jan 1990 00:00:01 GMT" />
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
             margin: 0; padding: 0;
@@ -48,6 +48,7 @@
         .fixedHeader .questionPopup {
             margin-top: 0px !important;
             box-shadow: none;
+            min-height: 0px !important;
         }
         .fixedHeader .problemName {
             margin-bottom: 10px !important;
@@ -58,6 +59,7 @@
             padding: 10px;
             width: 640px;
             height: auto;
+            min-height: 700px;
             background-color: #FFF;
             box-sizing: border-box;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -99,9 +101,10 @@
         }
         .questionItem {
             margin: 10px;
-            background-color: #F2F2F2;
+            background-color: #FAFAFA; /* F2F2F2 */
             font-size: 14px;
             border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         .questionTitleBox {
             display: flex;
@@ -111,6 +114,8 @@
         }
         .questionContentBox {
             font-size: 12px;
+            overflow: hidden;
+            height: 0;
         }
         .questionContentBox div:nth-child(1) {
             padding: 10px;
@@ -129,6 +134,11 @@
             display: flex;
             justify-content: flex-end;
         }
+        .questionContentBox.opened {
+            overflow-y: auto;
+            height: auto;
+        }
+
         .questionName {
             font-weight: normal;
         }
@@ -160,6 +170,7 @@
         .newQuestionBtn {
             display: flex;
             margin: 10px;
+            margin-bottom: 0;
             background-color: #46B79C;
             color: #FFF;
         }
@@ -204,11 +215,11 @@
                             <li class="questionItem">
                                 <div class="questionTitleBox">
                                     <div class="questionName">밥은 맛있나요?</div>
-                                    <button class="questionViewBtn answer">
+                                    <button class="questionViewBtn answer opened">
                                         <a>질문 접기</a>
                                     </button>
                                 </div>
-                                <div class="questionContentBox">
+                                <div class="questionContentBox opened">
                                     <div>
                                         밥은 정말 맛있나요?
                                     </div>
@@ -221,11 +232,11 @@
                             <li class="questionItem">
                                 <div class="questionTitleBox">
                                     <div class="questionName">밥은 맛있나요?</div>
-                                    <button class="questionViewBtn notAnswer">
+                                    <button class="questionViewBtn notAnswer opened">
                                         <a>질문 접기</a>
                                     </button>
                                 </div>
-                                <div class="questionContentBox">
+                                <div class="questionContentBox opened">
                                     <div>
                                         밥은 정말 맛있나요?
                                     </div>
@@ -238,16 +249,25 @@
                                 </div>
                             </li>
                             <script>
-                                let htmlTag = `
-                                    <li class="questionItem">
-                                        <div class="questionTitleBox">
-                                            <div class="questionName">밥은 맛있나요?</div>
-                                            <button class="questionViewBtn notAnswer">
-                                                <a>질문 보기</a>
-                                            </button>
-                                        </div>
-                                    </li>
-                                `;
+                                // IE에서 템플릿 리터럴(``)을 사용하지 못함 
+                                let htmlTag =   '<li class="questionItem">' + 
+                                            '<div class="questionTitleBox">' +
+                                            '<div class="questionName">밥은 맛있나요?</div>' +
+                                            '<button class="questionViewBtn notAnswer">' +
+                                            '<a>질문 보기</a>' +
+                                            '</button>' +
+                                            '</div>' +
+                                            '<div class="questionContentBox">' +
+                                            '<div>' +
+                                            '</div>' +
+                                            '<div class="notQuestion">' +
+                                            '<button class="cancelQuestionBtn">' +
+                                            '<a>질문 취소</a>' +
+                                            '</button>' +
+                                            '<!-- 답변을 안달았을때 빈 내용 디스플레이 -->' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</li>'
 
                                 for(let i = 0; i < 20; i++) {
 
